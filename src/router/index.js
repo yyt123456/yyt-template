@@ -74,7 +74,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: {title: 'Dashboard', icon: 'dashboard', affix: true}
       }
     ]
   }
@@ -85,14 +85,25 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '/book/create',
+    component: Layout,
+    redirect: '/book/create',
+    meta: {title: '图书创建', icon: 'documentation', roles: ['admin']},
+    children: [
+      {
+        path: '/book/create',
+        meta: {title: '图书创建', icon: 'edit', roles: ['admin']},
+        component: () => import('@/views/book/create'),
+      }
+    ]
+  },
+  {path: '*', redirect: '/404', hidden: true}
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRoutes
 })
 
