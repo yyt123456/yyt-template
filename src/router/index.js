@@ -74,7 +74,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: {title: 'Dashboard', icon: 'dashboard', affix: true}
       }
     ]
   }
@@ -86,13 +86,32 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
 
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '/book',
+    component: Layout,
+    redirect: '/book/create',
+    meta: {title: '父节点', icon: 'edit'},
+    children: [
+      {
+        path: '/book/create',
+        component: () => import('@/views/book/create'),
+        name: 'Book-Create',
+        meta: {title: '子节点', icon: 'edit'}
+      },
+      {
+        path: '/book/delete',
+        component: () => import('@/views/book/create'),
+        name: 'Book-Delete',
+        meta: {title: '子节点2', icon: 'edit'}
+      }
+    ]
+  },
+  {path: '*', redirect: '/404', hidden: true}
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRoutes
 })
 
